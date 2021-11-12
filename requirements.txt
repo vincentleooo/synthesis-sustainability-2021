@@ -68,6 +68,7 @@ pycparser==2.21
 Pygments==2.10.0
 pyparsing==2.4.7
 pyrsistent==0.18.0
+PySocks==1.7.1
 python-dateutil==2.8.2
 pythran==0.10.0
 pytz==2021.3
@@ -76,13 +77,14 @@ qtconsole==5.2.0
 QtPy==1.11.2
 regex==2021.11.10
 requests==2.26.0
-scikit-learn>=1.0.1
+scikit-learn
 scipy==1.8.0.dev0+1984.f1c6b54
 seaborn==0.11.2
 selenium==3.141.0
 Send2Trash==1.8.0
 six==1.16.0
 smart-open==5.2.1
+snscrape @ git+https://github.com/JustAnotherArchivist/snscrape.git@a6b6f3faaa26f541d9469651451340096b5abc92
 soupsieve==2.3
 terminado==0.12.1
 testpath==0.5.0
