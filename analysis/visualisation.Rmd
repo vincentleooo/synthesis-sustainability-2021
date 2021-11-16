@@ -4,4 +4,126 @@ output: html_notebook
 ---
 
 
+```{r include=FALSE}
+loadPkg <- function(pkgname){
+  # Test to see if package pkgname is installed. 
+  # character.only=TRUE means pkgname is a character string with the name 
+  # of the package we want to use. 
+  if(require(pkgname, character.only = TRUE)) {
+    # paste0() concatenates strings without any separator
+    print(paste0("'", pkgname,"' is loaded correctly"))
+  } else {
+    # The require() function returned FALSE so we will try to install the 
+    # package from the CRAN site
+    print(paste0("Trying to install '", pkgname, "'"))
+    install.packages(pkgname, character.only = TRUE,
+                     repos="http://cran.us.r-project.org")
+    if(require(pkgname, character.only = TRUE)) {
+      print(paste0("'", pkgname, "' is installed and loaded."))
+    } else {
+      print(paste0("Could not install '", pkgname, "'"))
+    }
+  }
+}
+
+# If we provide a vector of package names, we can load them all as follows:
+loadPkgs <- function(pkgnames){
+  for (pkgname in pkgnames) loadPkg(pkgname)
+}
+
+pkgs <- c('tidyverse',
+          'dplyr', 
+          'colorspace', 
+          'ggfortify', 
+          'GGally', 
+          'psych', 
+          'ggbiplot', 
+          'AMR', 
+          'caret',
+          'ROCR', 
+          'pROC',
+          'mlogit', 
+          'leaps',
+          'glmnet')
+
+loadPkgs(pkgs)
+
+# Theme for ggplot
+theme_set(
+  theme_light() + theme(legend.position = "top")
+)
+```
+
+# Loading the dataset from Synthesis
+
+We will be using the `.tsv` files.
+
+```{r}
+ig <- read_tsv("../dataset/tsv/event_ig_p5y.tsv")
+tw <- read_tsv("../dataset/tsv/event_tw_p1y.tsv")
+ig_top <- read_tsv("../dataset/tsv/ig_top_followed.tsv")
+tw_top <- read_tsv("../dataset/tsv/tw_top_followed.tsv")
+```
+
+# Starting with P5Y IG posts
+
+```{r}
+summary(ig)
+```
+
+```{r}
+head(ig)
+```
+```{r}
+top_posting_users <- ig %>% count(user_id) %>% arrange(desc(n))
+top_posting_users
+median(top_posting_users$n)
+```
+
+```{r}
+ggplot(top_posting_users %>% filter(n <= 1000), aes(n)) + geom_histogram(bins = 20, fill = "black") +
+  labs(
+    title = "Count of IG Posts Per User P5Y",
+    subtitle = "Users with over 1000 posts omitted",
+    x = "Number of Users",
+    y = "Number of Posts"
+  )
+```
+
+```{r}
+ggplot(ig %>% filter(post_likes <= 500), aes(post_likes)) + geom_histogram(bins = 100, fill = "black") + 
+  labs(
+    title = "Histogram of IG Post Likes P5Y",
+    subtitle = "Posts with over 500 likes omitted",
+    x = "Number of Likes",
+    y = "Number of Posts"
+  )
+```
+
+```{r fig.height=3}
+ggplot(ig %>% filter(!is.na(segment_name)), aes(segment_name)) + geom_bar(fill = 'black') +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+
+Interestingly, over the past 5 years, some people managed to post a lot of posts! Let's see what they're up to.
+
+```{r}
+top_ig_user <- top_posting_users$user_id[1]
+
+top_ig_user_posts <- ig %>% filter(user_id == top_ig_user)
+head(top_ig_user_posts$post_caption)
+```
+
+From a quick look, it looks like an account mainly for advertisement purposes in Malay. We can take a look at the rest.
+
+```{r}
+for (i in 1:25) {
+  top_ig_user <- top_posting_users$user_id[i]
+
+  top_ig_user_posts <- ig %>% filter(user_id == top_ig_user)
+  print(head(top_ig_user_posts$post_caption))
+}
+
+```
 
