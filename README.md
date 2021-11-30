@@ -5,4 +5,5 @@ Repository for the codes used for submission [here](https://vinleonardo.com/synt
 ### To-do
 
 [] Clean up the files and refactor the code.
+
 [] Combine with Anisha and Sarah's codes.
