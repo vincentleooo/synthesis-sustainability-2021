@@ -1,0 +1,2 @@
+"0","ggplot(ig %>% filter(!is.na(segment_name)), aes(segment_name)) + geom_bar(fill = 'black') +"
+"0","  theme(axis.text.x = element_text(angle = 90))"

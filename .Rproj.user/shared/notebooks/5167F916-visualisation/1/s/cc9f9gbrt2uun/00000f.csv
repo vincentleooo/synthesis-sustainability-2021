@@ -1,0 +1,2 @@
+"0","top_posting_users <- ig %>% count(user_id) %>% arrange(desc(n))"
+"0","top_posting_users"
