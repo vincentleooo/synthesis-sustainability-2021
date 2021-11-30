@@ -85,8 +85,8 @@ ggplot(top_posting_users %>% filter(n <= 1000), aes(n)) + geom_histogram(bins = 
   labs(
     title = "Count of IG Posts Per User P5Y",
     subtitle = "Users with over 1000 posts omitted",
-    x = "Number of Users",
-    y = "Number of Posts"
+    x = "Number of Posts",
+    y = "Number of Users"
   )
 ```
 
