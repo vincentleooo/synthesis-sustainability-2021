@@ -1,4 +1,4 @@
-## Synthesis Sustainability Competition
+## Synthesis Sustainability IRL Data Challenge 2021
 
 Repository for the codes used for submission [here](https://vinleonardo.com/synthesis-sustainable-competition-2021/).
 
